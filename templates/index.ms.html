@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    window.renderMathInElement(document.body, {
+      delimiters: [
+        {{# config}}
+        {{# latex_display_delims}}
+        {left: "{{# escape_backslashes}}{{left}}{{/ escape_backslashes}}", right: "{{# escape_backslashes}}{{right}}{{/ escape_backslashes}}", display: true},
+        {{/ latex_display_delims}}
+        {{# latex_inline_delims}}
+        {left: "{{# escape_backslashes}}{{left}}{{/ escape_backslashes}}", right: "{{# escape_backslashes}}{{right}}{{/ escape_backslashes}}", display: false},
+        {{/ latex_inline_delims}}
+        {{/ config}}
+      ],
+      macros: {
+        {{# config}}
+        {{# latex_macros}}
+        "{{# escape_backslashes}}{{name}}{{/ escape_backslashes}}": "{{# escape_backslashes}}{{code}}{{/ escape_backslashes}}",
+        {{/ latex_macros}}
+        {{/ config}}
+      },
+    });
+  });
+</script>
+<style>
+body {
+  font-family: serif;
+  font-size: 14px;
+  max-width: 700px;
+  margin: 24px auto;
+  padding: 0 8px;
+}
+.h1 {
+  font-size: 36px;
+  text-decoration: underline;
+}
+.h2 {
+  font-size: 28px;
+}
+.h3 {
+  font-size: 20px;
+}
+.h4 {
+  font-size: 16px;
+}
+.statement {
+  margin-top: 8px;
+  border: 1px solid lightgrey;
+  padding: 0 8px;
+  padding-top: 8px;
+}
+.open-problem {
+  margin-top: 8px;
+  border: 1px solid orange;
+  padding: 0 8px;
+  padding-top: 8px;
+}
+.proof {
+  background: lightgrey;
+  border: 1px solid darkgrey;
+  border-left: 8px solid darkgrey;
+  padding: 4px 12px;
+  margin-bottom: 8px;
+}
+.proof p {
+  margin: 2px auto;
+}
+</style>
+</head>
+<body>
+{{# blocks}}
+{{# is_header}}{{> header}}{{/ is_header}}
+{{# is_paragraph}}{{> paragraph}}{{/ is_paragraph}}
+{{# is_statement}}{{> statement}}{{/ is_statement}}
+{{# is_proof}}{{> proof}}{{/ is_proof}}
+{{/ blocks}}
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    window.renderMathInElement(document.body, {
+      delimiters: [
+        {left: "$$", right: "$$", display: true},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "$", right: "$", display: false},
+        {left: "\\(", right: "\\)", display: false},
+      ],
+      macros: {
+        "\\R": "\\mathbb{R}",
+        "\\la": "\\langle",
+        "\\ra": "\\rangle",
+      },
+    });
+  });
+</script>
+<style>
+body {
+  font-family: serif;
+  font-size: 14px;
+  max-width: 700px;
+  margin: 24px auto;
+  padding: 0 8px;
+}
+.h1 {
+  font-size: 36px;
+  text-decoration: underline;
+}
+.h2 {
+  font-size: 28px;
+}
+.h3 {
+  font-size: 20px;
+}
+.h4 {
+  font-size: 16px;
+}
+.statement {
+  margin-top: 8px;
+  border: 1px solid lightgrey;
+  padding: 0 8px;
+  padding-top: 8px;
+}
+.open-problem {
+  margin-top: 8px;
+  border: 1px solid orange;
+  padding: 0 8px;
+  padding-top: 8px;
+}
+.proof {
+  background: lightgrey;
+  border: 1px solid darkgrey;
+  border-left: 8px solid darkgrey;
+  padding: 4px 12px;
+  margin-bottom: 8px;
+}
+.proof p {
+  margin: 2px auto;
+}
+</style>
+</head>
+<body>
+<h1 class="h1" id="h">
+   Complements
+</h1>
+
+
+
+
+<h1 class="h2" id="h1">
+  1. Schur-Zassenhaus
+</h1>
+
+
+
+
+
+<p>This section is devoted to the proof of the following powerful theorem:</p>
+
+
+
+
+
+
+<div id="schur-zassenhaus" class="statement">
+  <u>Theorem 1.1</u>:
+   <strong>Schur-Zassenhaus</strong>
+  <p>Let $G$ be finite and $N \lhd_b G$ of order $a$.</p>
+
+<ol>
+<li>If $(a,b) = 1$, then there exists a complementary subgroup of order $b$.</li>
+<li>If, moreover, $N$ or $G/N$ is soluble, then all such subgroups are conjugated.</li>
+</ol>
+
+</div>
+
+
+
+<p>In fact, it was proven in 1963 by Feit and Thompson that all finite groups
+of odd order are soluble, which means that the solubility assumption in (2)
+is actually superfluous.
+However, the proof is 254 pages long and we don't want to rely on it in this
+short summary.</p>
+
+
+
+
+<h1 class="h3" id="h1_1">
+  1.1. Abelian case
+</h1>
+
+
+
+
+<h1 class="h3" id="h1_2">
+  1.2. General case
+</h1>
+
+
+
+
+<h1 class="h2" id="h2">
+  2. Hall theory
+</h1>
+
+
+
+
+</body>
+</html>

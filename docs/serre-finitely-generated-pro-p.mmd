@@ -1,0 +1,126 @@
+# Serre's Theorem on finitely generated pro-$p$ groups
+
+THEOREM Serre (1965)
+> Let $G$ be a finitely generated pro-$p$ group. Then any abstract subgroup 
+> of finite index is open.
+
+It suffices to prove the statement for normal subgroups $N$ of finite index as 
+their is always the normal core and so any finite-index subgroup is a union
+of (finitely many) open cosets.
+We prove by induction on $|G/N|$.
+First assume that $G/N$ is not simple.
+By quotient correspondence there exists a subgroup $N < K < G$ of smaller index, 
+which is open in $G$ by induction.
+
+
+LEMMA
+> Open subgroups of finitely generated profinite groups are finitely generated.
+
+**Remark**: Finitely generated in the profinite sense does not imply the 
+original one.
+
+PROOF
+> $X$ a finite generating set of a dense subgroup of $G$. Assume $H$ has finite
+> index $n$ (open subgroup!). By taking closures, We have
+> \[ m = [ \la X \ra : \la X \ra \cap H ] \leq [G:H] = n, \]
+> and so $\la X \ra \cap H = \la Y \ra$ with a finite generating set 
+> $Y \subset \la X \ra \cap H$. Let $K = \overline{\la Y \ra}$.
+> Since $K \leq H$ we have $[G:K] \geq n$. Now we prove the other inequality:
+> choose a right transversal $t_1, \dots t_m$ of $\la Y \ra$ in $\la X \ra$.
+> We have $G = \bigcup_i K t_i$ which implies $[G:K] \leq m \leq n$.
+> Hence (since $K \leq H$) $H = K = \la Y \ra$.
+
+
+Therefore, $K$ is a finitely generated pro-$p$ group and by induction $N$ is also
+open in $K$ since $[G:K] < [G:N]$. This proves the non-simple case.
+
+Now assume $G/N$ is simple.
+
+LEMMA
+> Every subgroup of finite index in a 1-generated profinite group is open.
+PROOF
+> Let $g$ be the generator. By considering the unique extension of the map 
+> $\Z \to G, z \mapsto g^z$ 
+> to a continuous map on $\hat{\Z}$ one sees that $G$ is an epimorphic image
+> of $\hat{\Z}$.
+> Hence there is an $N \lhd_c \hat Z$ such that $G = \hat Z / N$. Take a 
+> subgroup $H = K/N$ of index $n$. As $\hat \Z / K$ is abelian, 
+> $n \hat Z \subset K$. But $[\hat Z : n \hat Z] = n$, so $K = n \hat Z$.
+
+LEMMA
+> If $H$ has index $n$ in the profinite group $G$, then $n \mid |G|$.
+
+**Remark:** Note that the profinite Lagrange theorem only holds for closed 
+subgroups so additional work is necessary.
+
+PROOF
+> Wlog assume $H$ is normal (otherwise pass to the normal core $H_G \leq H$ 
+> which has index $\leq n!$ in $G$).
+> First we take a prime $p | n = [G:H]$. Take an element $gH$ of order $p$ and
+> let $K = \overline{\la g \ra}$. As $KH / H \cong K/H \cap K$ we see that the
+> former is finite. Note that $g^p$ is in $H$ and so $g$ has order $p$ in 
+> $K \cap H$.
+> $K$ is 1-generated so by the previous lemma $H \cap K$ is open, hence closed,
+> in $K$ and hence in $G$. Now we may use Lagrange:
+> \[ p \mid [K:H \cap K] \mid [G:K] [K:H \cap K] [H \cap K:1] = |G|. \]
+>
+> ------------------------------------------------------------------------------
+>
+> Now let $p^\alpha$ be the largest $p$-power that divides $n$ and $p^\beta$ the
+> largest that divides $|G|$. We want to prove that $\alpha \leq \beta$ 
+> (wlog assume that $\beta < \infty$).
+> Choose an open subgroup $U$ such that $p^\beta$ divides $G/U$ but 
+> $p^{\beta + 1}$ doesn't and $(|U|,p) = 1$. Note that $U \cap H$ has finite
+> index in $G$, since $U$ and $H$ have. 
+> $p$ does not divide $|U|$, so by the first part it is not dividing 
+> $[U : U \cap H]$.
+> Therefore, $p^{\beta + 1}$ does not divide $[G:H \cap U]$, but $p^\alpha$ does.
+
+In our case: A number that doesn't divide $|G| = p^n$ ($n$ possibly infinite) cannot 
+be a subgroup index.
+Consequently, $G/N$ is a finite $p$ group and simple, so $|G/N| = p$.
+But then $G' G^p \leq N$ and we conclude with the following lemmas:
+
+LEMMA
+> $G = \la x_1, \dots, x_d \ra$ a finite $p$-group. Then every element $g \in G'$ 
+> can be written as $g = [x_1, g_1] \cdots [x_d, g_d]$ for suitable $g_i$.
+PROOF
+> By induction on $|G|$. Write $Z = Z(G)$ and assume it not to be the full group.
+> $uZ \neq 1$ in $Z(G/Z)$. For some $i$ we then have $[x_i, u] \neq 1$.
+> But also $[x_i, u] \in Z$, so $[x_i, u^r] = [x_i, u]^r$.
+> Then let $K = \la [x_i, u] \ra$, a non-trivial normal subgroup of $G$.
+> By induction $gK = [x_1, h_1] \cdots [x_d, h_d] K$ for all $g \in (G/K)'$.
+> Therefore, $g = [x_1, h_1] \cdots [x_d, h_d] [x_i, u]^r$. 
+> Again using the fact that $[x_i, u] \in Z$ we can move the last factor in 
+> the product and replace the $i$-th one by $[x_i, u^r h_i]$.
+
+LEMMA
+> The subgroup $G' G^p$ in a finitely generated pro-$p$ group is open.
+PROOF
+> We first prove that $G'$ is closed. 
+> Let $G = \overline{\la x_1, \dots, x_d \ra}$ and 
+> $S = \{ [x_1, g_1] \cdots [x_d, g_d] \mid g_i \in G \}$.
+> Then $S$ is the image of the continuous map 
+> $G^d \to G, (g_1, \dots, g_d) \mapsto [x_1, g_1] \cdots [x_d, g_d]$
+> hence closed.
+> Let $\mathcal{N}$ be the set of open normal subgroups (all have finite index)
+> and $N \in \mathcal{N}$. Then $SN/N$ finite and by the previous lemma we have
+> $SN/N = (G/N)' = G'N/N$, hence $SN = G'N$. Then
+> \[ S = \overline{S} = \bigcap_{N \in \mathcal{N}} SN 
+>   = \bigcap_{N \in \mathcal{N}} G'N = \overline{G'}. \]
+> But $S \subset G'$ so $\overline{G}' = G'$.
+>
+> ------------------------------------------------------------------------------
+>
+> We know now, that $G/G'$ is profinite, hence compact. Therefore, the image 
+> $\gamma(G/G') = G' G^p / G'$ of
+> the continuous map
+> \[ G/G' \to G/G', g G' \mapsto g^p G' \]
+> is closed.
+> Let $x_1, \dots, x_d$ be the generators of a dense subgroup of $G$. Then the
+> projections $y_1, \dots, y_d$ to $G' G^p$ generate a dense subgroup in the 
+> quotient.
+> The subgroup $\la y_1, \dots, y_d \ra$ is abelian and has exponent $p$ and so
+> it must be finite, hence closed in $G/G' G^p$. 
+> So $\la y_1, \dots, y_d \ra = G/G' G^p$, i.e. $G' G^p$ is closed of finite index
+> in $G$, which in turn means that it is open.

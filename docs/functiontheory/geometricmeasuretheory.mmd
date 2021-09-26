@@ -1,0 +1,325 @@
+# Geometric Measure Theory
+
+These are my lecture notes for part 3 of 4 of the lecture "Theory of Functions"
+held by Prof. Davide Vittone at the university of Padova (Winter 2020/2021).
+
+#### Literature
+
+Besides the blackboard lecture the following texts is used and referenced:
+
+- W. Rudin: Real and Complex Analysis (1987)
+
+--------------------------------------------------------------------------------
+
+## Basic concepts
+
+Let $(X, d)$ be a locally compact separable metric space and denote by
+$B(X)$ its Borel $\sigma$-algebra.
+A **measure** is a map $\mu \colon B(X) \to \mathbb{R}^p$ which is countably 
+additive. Note that $\mu(\varnothing) = 0$ and that $\mu$ is never $\infty$.
+If $\mu$ is a measure only locally (i.e. on compactly contained sets), we call 
+it a **Radon measure**.
+
+PROPOSITION
+> Fix an $X$-invading sequence $\{X_h\}$. If $\mu \geq 0$ Radon, then for any 
+> $B \in B(X)$
+> $$\mu(B) = \lim_{h\to\infty} \mu(B \cap X_h).$$
+> As a consequence $\mu$ is countably additive.
+
+Let now $\mu$ be a measure. The **total variation measure** is the defined for 
+all $B \in B(X)$ by
+$$|\mu|(B) = \sup \left\{ \sum_i |\mu(B_i)| \,\colon\, \{B_i\}_i \text{ partitions } B\right\} .$$
+
+PROPOSITION
+> $|\mu|(X) < \infty$ and $|\mu|$ is the smallest measure $\nu$ s.t. 
+> $|\mu(B)| \leq \nu(B)$ for all $B \in B(X)$.
+PROOF
+
+If $p = 1$ we may decompose $\mu = \mu^+ - \mu^-$ into positive and negative 
+part and $|\mu| = \mu^+ + \mu^-$.
+
+The **support of a measure** $\mu$ is defined by 
+\[\operatorname{spt}(\mu) = \{x \in X \,\colon\, |\mu|(B(x,r))>0 \,\forall r>0 \}.\]
+It is the smallest closed set $C \subset X$ such that $|\mu|(X \setminus C) = 0$.
+
+If either $\mu \geq 0$ and $f \in L^1(X,\mu;\mathbb{R}^P)$ or $\mu$ 
+$\mathbb{R}^p$-valued and $f \in L^1(X,\mu)$, we may define the **product** 
+$f \mu$ by $(f\mu)(B) = \int_B f \,d\mu$. Note that $|f \mu| = |f| |\mu|$. 
+The **restriction** of $\mu$ onto $E$ is then defined by $\mu|E = \chi_E \mu$.
+
+Let $\lambda$ be $\mathbb{R}^P$-valued and $\mu \geq 0$. We say that $\lambda$
+is **absolutely continuous** w.r.t. $\mu$ (written $\lambda \ll \mu$) if 
+$\mu(B) = 0$ implies $|\lambda(B)| = 0$. 
+On the other hand, if there exists $B$ s.t. $\mu(B) = 0$
+and $|\lambda|(X \setminus B) = 0$, then $\lambda$ is **singular** w.r.t. $\mu$
+(in symbols $\lambda \bot \mu$).
+
+THEOREM Radon-Nikodym
+> $\lambda$ and $\mu \geq 0$ measures on $X$. Then there exists 
+> $f \in L^1(X,\mu;\mathbb{R}^p)$ and $\lambda^s$ such that
+> \[ \lambda = f \mu + \lambda^s, \]
+> where $\lambda^s \bot \mu$.
+PROOF
+> [Rudin: Theorem 6.10 on p. 121].
+
+In particular, if $\lambda \ll \mu$, then $\lambda^s = 0$, so $\lambda = f \mu$
+and so $\lambda = f |\lambda|$ with $f \in \mathbb{S}^{p-1}$, as 
+we always have $\lambda \ll |\lambda|$.
+
+THEOREM Regularity of measures
+> $\mu$ non-negative Radon measure. Then for all $B \in B(X)$
+> $$\mu(B) = \inf\{\mu(U) \,\colon\, U \,\text{open}\,, B \subset U\}
+> = \sup\{\mu(K) \,\colon\, K \,\text{compact}\,, K \subset B\}$$
+PROOF
+
+THEOREM Riesz
+> For each linear function $T \colon C_\text{c}(X;\mathbb{R}^p) \to \mathbb{R}$ 
+> there exists a unique $\mathbb{R}^p$-valued measure $\mu$ on $X$ s.t.
+> \[ T(\varphi) = \sum_{i=1}^p \int_X \varphi_i \, d \mu_i. \]
+> Moreover, $\lVert T \rVert = |\mu|(X)$.
+PROOF
+> [Rudin: Theorem 6.19 on p. 130]
+
+## Covering theorems
+
+THEOREM Besicovitch
+> There exists $N=N(d) \in \mathbb{N}$ s.t. the following holds:
+> Let $\mathcal{B}$ be a family of closed balls in $\mathbb{R}^d$ such that the
+> set 
+> \[ A = \{ x \in \mathbb{R}^d \colon\, \exists r > 0 \,\text{s.t.}\, \overline{B(x,r)} \in \mathcal{B} \} \]
+> is bounded.
+> Then there are internally disjoint subfamilies $\mathcal{B}_1, \cdots, \mathcal{B}_N$ such that
+> $$ A \subset \bigcup_{i} \left( \bigcup \mathcal{B}_i \right). $$
+
+By a slight change in the proof, one can also use open balls.
+
+Let $A \subset \mathbb{R}^d$. A **fine covering** of $A$ is family $\mathcal{B}$ 
+of closed balls such that for all $x \in A$
+\[\inf\{ r > 0 \,\colon\, \overline{B(x,r)} \in \mathcal{B} \} = 0. \]
+
+THEOREM[vitali] Vitali
+> $A \subset B(\mathbb{R}^d)$ bounded, $\mathcal{B}$ fine covering of $A$ and
+> $\mu$ a non-negative Radon measure. Then there exists an internally disjoint
+> subfamily $\mathcal{B}' \subset \mathcal{B}$ at most countable such that
+> \[ \mu \left(A \setminus \bigcup \mathcal{B}' \right) = 0. \]
+
+As a simple consequence one can also "waste only a bit", i.e.
+\[ \mu\left( \bigcup \mathcal{B}' \right) \leq \mu(A) + \varepsilon. \]
+
+LEMMA $5r$-covering lemma
+> $(X,d)$ metric space, $\mathcal{B}$ family of closed balls with radii at most
+> $R$. Then there is an internally disjoint subfamily 
+> $\mathcal{B}' \subset \mathcal{B}$ such that
+> \[ \bigcup_{B \in \mathcal{B}} B \subset \bigcup_{B \in \mathcal{B}'} 5B. \]
+
+If $X$ is separable, we can extract a countable subfamily.
+
+We call a non-negative measure on $(X,d)$ a **doubling measure** if there exists a 
+constant $C$ such that for $x \in X$ and for all $r > 0$
+\[ \mu(B(x,2r)) \leq C \mu(B(x,r)). \]
+With this notation one may generalize <@vitali> to locally compact separable 
+metric spaces and non-negative doubling Radon measures.
+
+## Differentiation of measures
+
+THEOREM Differentiation of measures
+> $\mu \geq 0$ Radon measure on $\Omega \subset \mathbb{R}^d$ open and $\lambda$
+> $\mathbb{R}^p$-valued such that $\lambda \ll \mu$. Then for $\mu$-a.e.
+> $x \in \operatorname{spt} \mu$ the function
+> \[ \frac{d\lambda}{d\mu}(x) = \lim_{r \to 0^+} \frac{\lambda(B(x,r))}{\mu(B(x,r))} \]
+> is well-defined in $\mathbb{R}^p$ and $\lambda = \frac{d\lambda}{d\mu} \mu$.
+
+We call this function the **density** at $x$ of $\lambda$ w.r.t. $\mu$.
+If we take $\mu$ doubling, then the statements also holds in locally compact 
+separable spaces.
+
+THEOREM Lebegue
+> $\mu \geq 0$ measure on $\Omega \subset \mathbb{R}^d$ open, $f \in L^p(\Omega, \mu)$.
+> Then for $\mu$-a.e. $x \in \operatorname{spt} \mu$ we have
+> \[ \lim_{r \to 0^+} \frac{1}{\mu(B(x,r)} \int_{B(x,r)} |f - (f)_{x,r}|^p \, d\mu = 0. \]
+
+Again, the same also holds in locally compact separable metric spaces.
+
+THEOREM
+> If $\lambda, \mu \geq 0$ measures on $\mathbb{R}^d$ and $E \subset \mathbb{R}^d$ 
+> such that $\lambda(E) = 0$. Then for $\mu$-a.e. $x \in E$
+> \[ \frac{d\lambda}{d\mu}(x) = 0. \]
+
+## Hausdorff measure
+
+Let $0 \leq k \in \mathbb{R}^d$ and $E \subset \mathbb{R}^d$. For each $\delta > 0$
+the $k$-dimensional **(normalized) Hausdorff pre-measure** is defined by
+\[ H_\delta^k(E) = \frac{\omega_k}{2^k} \inf\left\{ \sum_i E_i \,\colon\, E \subset \bigcup_i E_i, \operatorname{diam} E_i < \delta \right\}, \]
+where $\omega_k = \frac{\pi^{k/2}}{\Gamma(1 + \frac k2)}$ (which is the Lebesgue 
+volume of the unit ball in $\mathbb{R}^k$ if $k \in \mathbb{N}$).
+Taking the limit
+\[ H^k(E) = \lim_{\delta \to 0^+} H^k_\delta(E) = \sup_{\delta > 0} H^k_\delta(E) \]
+we obtain the **(normalized) Hausdorff measure** of $E$. We list some properties:
+
+- If $k \in \mathbb{N}$ and $E$ a $k$-dimensional $C^1$-submanifold, then
+  $H^k_E$ equals the usual surface measure.
+- $H^k$ is invariant under isometries, i.e. $H^k(\lambda E) = \lambda^k H^k(E)$.
+- $H^k_\delta$ is an outer measure which is additive on distant sets
+- $H^k$ is Borel regular, i.e. \( H^k(E) = \inf\{ H^k(\overline{E}) \colon\, 
+  \overline{E}\,\text{Borel}, E \subset \overline{E} \} \). In particular, 
+  $\forall E \exists \overline{E}$ Borel such that $E \subset \overline{E}$ and
+  $H^k(E) = H^k(\overline{E})$.
+- In the definition of the pre-measure one may also consider closed, open or
+  convex covers, but not balls.
+- If $f\colon \mathbb{R}^n \to \mathbb{R}^m$ is Lipschitz with constant $L$, then 
+  $H^k(f(E)) \leq L^k H^k(E)$.
+- $H^0$ is the counting measure and $H^k = 0$ if $k > d$.
+- If $k_1 < k_2$, then $H_\delta^{k_2}(E) < \delta^{k_2 - k_1} H_\delta^{k_1}(E)$.
+  Hence:
+  - $H^{k_1}(E) < \infty$ implies $H^{k_2}(E) = 0$.
+  - $H^{k_2}(E) > 0$ implies $H^{k_1}(E) = \infty$.
+
+THEOREM Bounded upper $k$-dimensional density
+> If $\mu \geq 0$ Radon on $\Omega \subset \mathbb{R}^d$ and $B \in B(\Omega)$. 
+> Fix $t > 0$. Then:
+> \[ \limsup_r \frac{\mu(B(x,r))}{\omega_k r^k} \geq t \,\forall x \in B 
+> \quad \implies \quad \mu(B) \geq t H^k(B), \]
+> and
+> \[ \limsup_r \frac{\mu(B(x,r))}{\omega_k r^k} \leq t \,\forall x \in B 
+> \quad \implies \quad \mu(B) \leq r^k t H^k(B). \]
+
+THEOREM
+> For all $B \in B(\mathbb{R}^d)$ and $\delta > 0$ we have 
+> $H^d(B) = L^d(B) = H_\delta^d(B)$.
+
+## Lipschitz maps
+
+THEOREM McShane-Whitney
+> $X$ metric space, $f \colon D \subset X \to \mathbb{R}$ Lipschitz. Then there
+> exists $\tilde{f} \colon X \to \mathbb{R}$ such that $\tilde{f}|_D = f$ and
+> $\operatorname{Lip} f = \operatorname{Lip} \tilde{f}$.
+
+As a simple consequence, one can also generalize this for $f \colon D \to \mathbb{R}^m$.
+In that case we get $\operatorname{Lip} \tilde f \leq \sqrt{m} \operatorname{Lip} f$.
+In case $X = \mathbb{R}^n$ we can do better:
+
+THEOREM[kirszbraun] Kirzsbraun
+> $f \colon D \subset \mathbb{R}^n \to \mathbb{R}^m$ Lipschitz. Then there exists
+> an extension $\tilde f \colon \mathbb{R}^n \to \mathbb{R}^m$ Lipschitz with
+> $\tilde{f}|_D = f$ and $\operatorname{Lip} f = \operatorname{Lip} \tilde{f}$.
+
+THEOREM[lip-almost-c1] Lipschitz is almost $C^1$
+> Given Lipschitz $f \colon \mathbb{R}^d \to \mathbb{R}$ and $\varepsilon > 0$ there
+> exists $\tilde f \in C^1(\mathbb{R}^d)$ such that
+> \[ L^n(\{ f \neq \tilde f\}) < \varepsilon. \]
+
+## Rectifiable sets
+
+Throughout this section we consider $\mathbb{R}^d$ and an integer $1 \leq k \leq d$.
+
+A set $E \subset \mathbb{R}^d$ is called **countably $k$-rectifiable** if there
+exists a countable family $\{\Gamma_i\}_i$ of roto-transled graphs of Lipschitz functions 
+$\phi_i \colon D_i \subset \mathbb{R}^k \to \mathbb{R}^{d-k}$ such that
+\[ H^k\left(E \setminus \bigcup_i \Gamma_i \right) = 0. \]
+If, moreover, $H^k(E) = 0$, we simply call $E$ **$k$-rectifiable**.
+
+- $E$ countably $k$-rectifiable, then $H^k|E$ is $\sigma$-finite.
+- By <@kirszbraun> w.l.o.g. $D_i = \mathbb{R}^k$.
+- By <@lip-almost-c1> one may ask the $\phi_i$ to be $C^1$, but not $C^2$.
+
+On the other hand $E \subset \mathbb{R}^d$ is **purely $k$-unrectifiable** if 
+$H^k(E \cap C) = 0$ for all $k$-rectifiable $C$ (or equivalently all $k$-dimensional
+$C^1$-submanifolds).
+
+THEOREM
+> $E \subset \mathbb{R}^d$ such that $H^k|E$ is $\sigma$-finite. Then there is
+> an $H^k$-unique decomposition
+> \[ E = E_\text{R} \cup E_\text{UR} \]
+> into a countably rectifiable and an unrectifiable set.
+
+The **Grassmannian** is defined by
+\[ G(d,k) = \{ k\text{-dimensional planes in }\mathbb{R}^d \}. \]
+It is a smooth compact manifold of dimension $k(d-k)$ and there exists a unique
+probability measure $\gamma_{d,k}$ on it, which is $O(d)$-invariant.
+
+THEOREM Characterization of pure unrectifiability / Federer
+> Let $E \subset \mathbb{R}^d$ Borel s.t. $H^k(E) < \infty$. Then:
+> $E$ is purely $k$-unrectifiable if and only if $H^k(\pi_v(E)) = 0$ for 
+> $\gamma_{d,k}$-a.e. $v \in G(d,k)$.
+
+On the other hand, we also have a criterion for rectifiability. For this define 
+the **tangent cone** of a $S \subset \mathbb{R}^d$ at $x$ by
+\[ \operatorname{TC}(S,x) = \Big\{ r v \colon\, 
+v = \lim_{h\to\infty} \frac{x_h - x}{|x_h - x|} 
+\text{ for some } \{x_h\}_h \text{ s.t. } x_h \to x \Big\}. \]
+Clearly, if $S$ is a $C^1$-submanifold, then $\operatorname{TC}(S,x) = T_xS$.
+
+THEOREM Rectifiability criterion
+> Let $E \subset \mathbb{R}^d$ s.t. $\dim \operatorname{span} \operatorname{TC}(E,x) \leq k$.
+> for $H^d$-a.e. $x$. Then $E$ is countably $k$-rectifiable.
+
+## Approximate tangent spaces and differentiation
+
+PROPOSITION
+> Let $\Gamma_1$ and $\Gamma_2$ be $k$-dimensional $C^1$-submanifolds of $\mathbb{R}^d$.
+> Then $T_x\Gamma_1 = T_x\Gamma_2$ for $H^k$-a.e. $x \in \Gamma_1 \cap \Gamma_2$.
+
+This justifies the following definition:
+
+Let $E$ be $k$-rectifiable with $H^k(E \setminus \bigcup_i \Gamma_i)$ taking the $\Gamma_i$
+as $k$-dimensional $C^1$-submanifolds. The **approximate tangent space** to $E$ at 
+$x$ is
+\[ \operatorname{Tan}^k(E,x) = 
+\begin{cases}
+T_x\Gamma_1 \quad \text{if } x \in \Gamma_1 \cap E \\
+T_x\Gamma_2 \quad \text{if } x \in (\Gamma_2 \cap E) \setminus \Gamma_1 \\
+\cdots \\
+T_x\Gamma_i \quad \text{if } x \in (\Gamma_i \cap E) \setminus (\Gamma_1 \cup \cdots \cup \Gamma_{i-1})
+\end{cases} \]
+Given a subvectorspace $M \leq \mathbb{R}^d$ the **cone** of slope $\varepsilon > 0$
+around $M$ is 
+\[ C(M,\varepsilon) = \{ v \in \mathbb{R}^d \colon\, |v - \pi_M v| \leq \varepsilon |v| \}, \]
+and we let $C(\bar x, M, \varepsilon)$ denote its translation by $\bar x \in \mathbb{R}^d$.
+
+PROPOSITION
+> $E \subset \mathbb{R}^d$ $k$-rectifiable. Then for all $\varepsilon > 0$ and for 
+> $H^k$-a.e. $x \in E$:
+> \[ \lim_{r \to 0} \frac{H^k\big((E\cap B(x,r)) \setminus C(x,\operatorname{Tan}^k(E,x), \varepsilon)\big)}
+> {H^k(E\cap B(x,r))} = 0. \]
+
+PROPOSITION
+> $E$ $k$-rectifiable, $r > 0$. Write $E_{x,r} = (E - x)/r$. Then for $H^k$-a.e. 
+> $x \in E$:
+> \[ H^k|{E_{x,r}} \rightharpoonup H^k|{\operatorname{Tan}^k(E,x)} \]
+> as $r \to 0^+$.
+
+The next result asserts the well-definedness of the **approximate differential**
+$d^E f(x) \colon \operatorname{Tan}^k(E,x) \to \mathbb{R}^p$ defined in an 
+approriate setup and $H^k$-almost everwhere.
+
+PROPOSITION
+> $f \colon \mathbb{R}^d \to \mathbb{R}^p$ Lipschitz and $E \subset \mathbb{R}^d$ $k$-rectifiable
+> with $k \leq p$. Then $f|_{x+\operatorname{Tan}^k(E,x)}$ is differentiable at
+> $H^k$-a.e. $x \in E$.
+
+We may now define generalizations of the Jacobian, the **area element**:
+\[ J^E f(x) = \sqrt{\det\big( d^Ef(x)^* \circ d^Ef(x) \big)}, \]
+and the **coarea element**:
+\[ C^E f(x) = \sqrt{\det\big( d^Ef(x) \circ d^Ef(x)^* \big)}. \]
+
+These give rise to the following important theorems
+
+THEOREM[area] Area formula
+> $f \colon \mathbb{R}^d \to \mathbb{R}^p$ Lipschitz, $E \subset \mathbb{R}^d$ 
+> $k$-rectifiable with $k \leq p$. Then:
+> \[ \int_{f(E)} H^0(E \cap f^{-1}(y))\, dH^k(y) = \int_E J^E f \, dH^k. \]
+
+- Since we may write every Borel-measurable function $h \colon \mathbb{R}^d \to \mathbb{R}$ 
+  as $h(x) = \sum_{i \in \mathbb{N}} \alpha_i \chi_{E_i}$
+  for $\alpha_i \in \mathbb{R}$ and $E_i$ Borel:
+  \[ \int_{f(E)} \left(\sum_{x \in f^{-1}(y)} h(x) \right) \, dH^k(y)
+     = \int_E h(x) J^E f \, dH^k. \]
+- Consequently, for all $\varphi \colon \mathbb{R}^p \to \mathbb{R}_+$ we may 
+  write $h = \varphi \circ f$ and hence
+  \[ \int_{f(E)} \varphi(y) H^0(E \cap f^{-1}(y)) \, dH^k(y)
+     = \int_E (\varphi \circ f) J^E f \, dH^k. \]
+
+THEOREM[coarea] Coarea formula
+> $E \subset \mathbb{R}^d$ $k$-rectifiable, $S \subset \mathbb{R}^d$ $p$-rectifiable, 
+> $k \geq p$, $f \colon E \to S$ Lipschitz. Then:
+> \[ \int_S H^{k-p}(f^{-1}(y))\, dH^p(y) = \int_E C^E f \, dH^k. \]

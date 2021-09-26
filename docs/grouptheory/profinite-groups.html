@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    window.renderMathInElement(document.body, {
+      delimiters: [
+        {left: "$$", right: "$$", display: true},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "$", right: "$", display: false},
+        {left: "\\(", right: "\\)", display: false},
+      ],
+      macros: {
+        "\\R": "\\mathbb{R}",
+        "\\la": "\\langle",
+        "\\ra": "\\rangle",
+      },
+    });
+  });
+</script>
+<style>
+body {
+  font-family: serif;
+  font-size: 14px;
+  max-width: 700px;
+  margin: 24px auto;
+  padding: 0 8px;
+}
+.h1 {
+  font-size: 36px;
+  text-decoration: underline;
+}
+.h2 {
+  font-size: 28px;
+}
+.h3 {
+  font-size: 20px;
+}
+.h4 {
+  font-size: 16px;
+}
+.statement {
+  margin-top: 8px;
+  border: 1px solid lightgrey;
+  padding: 0 8px;
+  padding-top: 8px;
+}
+.open-problem {
+  margin-top: 8px;
+  border: 1px solid orange;
+  padding: 0 8px;
+  padding-top: 8px;
+}
+.proof {
+  background: lightgrey;
+  border: 1px solid darkgrey;
+  border-left: 8px solid darkgrey;
+  padding: 4px 12px;
+  margin-bottom: 8px;
+}
+.proof p {
+  margin: 2px auto;
+}
+</style>
+</head>
+<body>
+<h1 class="h1" id="h">
+   Profinite Groups
+</h1>
+
+
+
+
+<h1 class="h2" id="h1">
+  1. Topological groups
+</h1>
+
+
+
+
+
+<p>A topological group is a group endowed with a topology such that the group
+operations are continuous. We quickly summarize important properties without
+proof:</p>
+
+
+
+
+
+
+<div id="top-gr-props" class="statement">
+  <u>Theorem 1.1</u>:
+  
+  <p>$G$ topological group. $H \leq G$. $X,Y \subseteq G$.</p>
+
+<ol>
+<li>$X$ open or closed, then so are $gX$, $Xg$ and $X^{-1}$.</li>
+<li>$\overline{H} \leq G$.</li>
+<li>$C_G(X)$ is closed.</li>
+<li>$N_G(H)$ is closed.</li>
+<li>$H$ open, then $H$ closed.</li>
+<li>$H$ closed and $[G:H]$ finite, then $H$ open.</li>
+<li>$H$ open and $G$ compact, then $[G:H]$ finite.</li>
+<li>$H$ normal, then the projections $G \to G/H$ are open.</li>
+<li>$G$ Hausdorff if and only if $\{1\}$ is closed.</li>
+<li>$K$ normal, then $G/K$ is Hausdorff if and only if $K$ is closed.</li>
+<li>$G$ totally disconnected, then $G$ Hausdorff.</li>
+<li>$G$ compact and $X, Y$ closed, then $XY$ closed.</li>
+<li>$X$ clopen with $1 \in X$, then $X$ contains a normal open subgroup.</li>
+<li>$G$ compact and totally disconnected, then any open subset of $G$
+is a union of cosets of open normal subgroups.</li>
+<li>$G$ compact and totally disconnected, then 
+\[ \overline{X} = \bigcap \{ NX \mid N \lhd_o G \}. \]</li>
+<li>$G$ compact and totally disconnected, then $G$ residually finite.</li>
+<li>$G$ compact and totally disconnected. $G$ infinite, then $G$ not 
+countable.</li>
+</ol>
+
+</div>
+
+
+<h1 class="h2" id="h2">
+  2. Inverse limits
+</h1>
+
+
+
+
+
+<p>A <strong>directed set</strong> is a poset $I$ such that any two $a, b \in I$ are bounded
+by some $c \in I$, i.e. $a \leq c$ and $b \leq c$.</p>
+
+
+
+
+
+<p>An <strong>inverse system</strong> $\{X_i, \varphi_{ij}\}$ is a family (indexed by a directed 
+set) of sets $\{X_i\}_{i \in I}$ together with a family of maps 
+$\{ \varphi_{ij} \colon X_j \to X_i \mid i,j \in I \text{ and } i \leq j\}$
+$\varphi_{ij} \colon $ such that $\varphi_{ii} = \operatorname{id}_{X_i}$ and 
+$\varphi_{ij} \circ \varphi_{jk} = \varphi_{ik}$ whenever $i \leq j \leq k$.</p>
+
+
+
+
+
+<p>Given an inverse system we call a family of maps 
+$\{ \varphi_i \colon Y \to X_i \}$ a <strong>compatible family</strong> on $Y$ if 
+$\varphi_i = \varphi_{ij} \circ \varphi_j$ whenever $i \leq j$.</p>
+
+
+
+
+
+<p>Now an <strong>inverse limit</strong> $X$ of such an inverse system is a set $X$ together 
+with a compatible family $\{ \pi_i \}_i$ on $X$ such that the following 
+universal property holds</p>
+
+<blockquote>
+  <p>For every other compatible family $\{ \varphi_i \}$ on a space $Y$ there 
+  exists a unique map $\sigma \colon Y \to X$ such that 
+  $\varphi_i = \pi_i \circ \sigma$.</p>
+</blockquote>
+
+
+
+
+
+
+<div  class="statement">
+  <u>Proposition 2.1</u>:
+  
+  <p>Inverse limits exist and are unique.</p>
+
+</div>
+
+
+
+
+
+<div class="proof">
+  <p>Uniqueness is routine and the construction proceeds as follows:</p>
+
+<p>Let $C = \prod_i X_i$ be the direct product and $\pi_i$ the projections.
+Then we define 
+\[ X = \left\{ c \in C \mid (\varphi_{ij} \circ \pi_j)(c) = \pi_i(c) 
+   \text{ for all } i \leq j \right\} \]
+and let $\varphi_i = \pi_i|_X$.</p>
+
+</div>
+
+
+<p>Hence we may use the notation $\lim^{\leftarrow} X_i$ unambiguously.
+Note that we may exchange the category of sets by the category of topological 
+spaces or groups, and still get a topological space or a group.</p>
+
+
+
+
+<h1 class="h3" id="h2_1">
+  2.1. Category of topological spaces
+</h1>
+
+
+
+
+
+<p>Without proof we state the following properties when working in the category of
+topological spaces:</p>
+
+
+
+
+
+
+<div id="inv-lim-props" class="statement">
+  <u>Theorem 2.2</u>:
+  
+  <p>Let $X = \lim^{\leftarrow} X_i$ be the inverse limit of topological spaces.</p>
+
+<ol>
+<li>If the $X_i$ are totally disconnected, so is $X$.</li>
+<li>If the $X_i$ are Hausdorff, so is $X$.</li>
+<li>If the $X_i$ are Hausdorff, then $X$ is closed in $\prod_i X_i$.</li>
+<li>If the $X_i$ are Hausdorff, then the subsets $\varphi_i^{-1}(U)$, 
+where $U$ is open in $X_i$, form a basis of the topology of $X$.</li>
+<li>If the $X_i$ are Hausdorff and compact, then $X$ is compact.</li>
+<li>If the $X_i$ are not empty, Hausdorff and compact, then $X$ is not empty.</li>
+<li>If the $G_i$ are non-empty, Hausdorff and compact, then for all $i$
+\[\varphi_i(X) = \bigcap_{j \geq i} \varphi_{ij}(X_j). \]</li>
+<li>If $Y \subseteq X$ is such that $\varphi_i(Y) = X_i$ for all $i$, then $Y$ 
+is dense.</li>
+<li>If $Y$ is a space and $\alpha \colon Y \to X$, then $\alpha$ is continuous
+if and only if all the $\varphi_i \circ \alpha$ are continuous.</li>
+</ol>
+
+</div>
+
+
+<h1 class="h3" id="h2_2">
+  2.2. Category of topological groups
+</h1>
+
+
+
+
+
+<p>Now we turn to topological groups (and finally start proving things). 
+Throughout, let $G = \lim^{\leftarrow} G_i$ be the inverse limit of 
+topological groups.</p>
+
+
+
+
+
+
+<div id="inv-lim-ker-lem" class="statement">
+  <u>Lemma 2.3</u>:
+  
+  <p>If all the $G_i$ Hausdorff and $L \lhd_o G$, then there exists $i$ s.t. 
+$\ker(\varphi_i) \subseteq L$.</p>
+
+</div>
+
+
+
+
+
+<div class="proof">
+  <p>Since $L$ is open, by <a href="#inv-lim-props">Theorem 2.,. .2</a> it can be written as the union of 
+inverse images of a compatible map of an open subgroup of some $G_i$.
+Choose $i$ and $U \subseteq G_i$ such that $1 \in \varphi_i^{-1}(U) \subseteq L$.</p>
+
+</div>
+
+
+<p>We call a family $I$ of subgroups of $G$ a <strong>filtering basis</strong> if for any 
+$K_1, K_2 \in I$ there is a third $K_3$ such that $K_3 \subseteq K_1 \cap K_2$.</p>
+
+
+
+
+
+
+<div id="top-gr-inv-lim" class="statement">
+  <u>Theorem 2.4</u>:
+  
+  <p>$G$ topological group. $I$ filtering basis of normal closed subgroups. 
+Then $\{G/K\}_{K \in I}$ together with the family of natural maps 
+$\{ \varphi_{K_1 K_2} \colon G/K_2 \to G/K_1 \}_{K_1 \geq K_2}$ 
+form an inverse system. Let
+\[ \hat G = \lim^{\longleftarrow}_{K \in I} G/K \]
+and $\theta \colon G \to \prod_{K \in I} G/K$ the natural map.
+Then we have:</p>
+
+<ol>
+<li>$\theta$ is a continuous group homomorphism.</li>
+<li>$\theta(G) \leq \hat G$.</li>
+<li>$\theta(G)$ is dense in $\hat G$.</li>
+<li>$\ker \theta = \bigcap_{K \in I} K$.</li>
+<li>If $G$ compact, then $\theta(G) = \hat G$.</li>
+<li>If $G$ compact and $\bigcap_{K \in I} K = 1$, then $G$ and $\hat G$ are
+isomorphic and homeomorphic.</li>
+</ol>
+
+</div>
+
+
+
+
+
+<div class="proof">
+  <p>"(1)": All the projections are continuous + <a href="#inv-lim-props">Theorem 2.,. .2</a> (9)</p>
+
+<hr />
+
+<p>"(2)": Clear as the maps $\varphi_{K_i K_j}$ are surjective.</p>
+
+<hr />
+
+<p>"(3)": Immediate by the density criterion <a href="#inv-lim-props">Theorem 2.,. .2</a> (8).</p>
+
+<hr />
+
+<p>"(5)": Note that $\theta(G)$ is compact in a Hausdorff space, hence closed.</p>
+
+<hr />
+
+<p>"(6)": Use the fact that a continuous bijection from a compact to a Hausdorff
+space is a homeomorphism.</p>
+
+</div>
+
+<h1 class="h2" id="h3">
+  3. Pro-$\mathcal{C}$ groups and completions
+</h1>
+
+
+
+
+
+<p>Let $\mathcal{C}$ be a class of <em>finite</em> groups, which is closed under subgroups, 
+epimorphic images and finite cartesian products.</p>
+
+
+
+
+
+<ul>
+<li>A <strong>$\mathcal{C}$-group</strong> is an elements of this class.</li>
+<li>A <strong>pro $\mathcal{C}$-group</strong> is a topological group that can be obtained as
+an inverse limit of $\mathcal{C}$-groups (each endowed with the discrete
+topology).</li>
+<li>In the case where $\mathcal{C}$ is the class of all finite groups we call
+$G$ a <strong>profinite group</strong>.</li>
+</ul>
+
+
+
+
+
+
+<div  class="statement">
+  <u>Theorem 3.1</u>:
+  
+  <p>TFAE:</p>
+
+<ol>
+<li>$G$ is a pro-$\mathcal{C}$-group</li>
+<li>$G$ is isomorphic to a closed subgroup of a direct product of 
+$\mathcal{C}$-groups.</li>
+<li>$G$ is compact and 
+$\bigcap \{ N \mid N \lhd_o G, G/N \in \mathcal{C} \} = 1$.</li>
+<li>$G$ is compact, totally disconnected and $G/N \in \mathcal{C}$ for any
+$N \lhd_o G$.</li>
+</ol>
+
+</div>
+
+
+
+
+
+<div class="proof">
+  <p>"(1) $\implies$ (2)": The finite groups $G_\lambda$ with the discrete 
+topology are Hausdorff. Use <a href="#inv-lim-props">Theorem 2.,. .2</a> (3).</p>
+
+<hr />
+
+<p>"(2) $\implies$ (3)": Compactness follows from Tychonoff and for the 
+intersection note that the kernels of the compatible maps are closed and of
+finite index, hence open, and that they have empty intersection.</p>
+
+<hr />
+
+<p>"(3) $\implies$ (1)": <a href="#top-gr-inv-lim">Theorem 2.,. .4</a></p>
+
+<hr />
+
+<p>"(1) $\implies$ (4)": <a href="#inv-lim-ker-lem">Lemma 2.,. .3</a></p>
+
+<hr />
+
+<p>"(4) $\implies$ (3)": <a href="#top-gr-props">Theorem 1.,. .1</a></p>
+
+</div>
+
+</body>
+</html>

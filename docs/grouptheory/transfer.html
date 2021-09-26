@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    window.renderMathInElement(document.body, {
+      delimiters: [
+        {left: "$$", right: "$$", display: true},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "$", right: "$", display: false},
+        {left: "\\(", right: "\\)", display: false},
+      ],
+      macros: {
+        "\\R": "\\mathbb{R}",
+        "\\la": "\\langle",
+        "\\ra": "\\rangle",
+      },
+    });
+  });
+</script>
+<style>
+body {
+  font-family: serif;
+  font-size: 14px;
+  max-width: 700px;
+  margin: 24px auto;
+  padding: 0 8px;
+}
+.h1 {
+  font-size: 36px;
+  text-decoration: underline;
+}
+.h2 {
+  font-size: 28px;
+}
+.h3 {
+  font-size: 20px;
+}
+.h4 {
+  font-size: 16px;
+}
+.statement {
+  margin-top: 8px;
+  border: 1px solid lightgrey;
+  padding: 0 8px;
+  padding-top: 8px;
+}
+.open-problem {
+  margin-top: 8px;
+  border: 1px solid orange;
+  padding: 0 8px;
+  padding-top: 8px;
+}
+.proof {
+  background: lightgrey;
+  border: 1px solid darkgrey;
+  border-left: 8px solid darkgrey;
+  padding: 4px 12px;
+  margin-bottom: 8px;
+}
+.proof p {
+  margin: 2px auto;
+}
+</style>
+</head>
+<body>
+<h1 class="h1" id="h">
+   Transfer Maps
+</h1>
+
+
+
+
+
+<p>We develop theory to produce normal subgroups. 
+The main result of this section is a result by Burnside that produces
+normal p-complements.</p>
+
+
+
+
+<h1 class="h2" id="h1">
+  1. Definition and simple properties
+</h1>
+
+
+
+
+
+<p>Let $G$ be a group, $H \leq_f G$ and $T$ a right transversal of $H$ in $G$.
+Given $g\in G$, $t \in T$ there exists a uniquely determined action 
+$t \circ g \in T$ such that $Htg = H(t \circ g)$. 
+This asserts the well-definedness of the <strong>transfer map</strong> to $H$:
+\[ v \colon G \to H/H', g \mapsto \prod_{t \in T} t g (t \circ g)^{-1} H'. \]
+It is independent of the chosen transversal and a group homomorphism.</p>
+
+
+
+
+
+<p>To compute the transversal for a fixed $g$ one can consider the orbits
+$O_1, \cdots, O_r$ produced by the action of $\langle g \rangle$ on $T$.
+Fix elements $t_1, \cdots, t_r$ inside and write $n_i = |O_{t_i}|$.
+Then one has $O_i = \{ t_i \circ g^j \mid 0 \leq j < n_i \}$ and $t_i = t_i \circ g^{n_i}$.
+Therefore, 
+\[\begin{aligned}
+  &\prod_{s \in O_i} s g (s \circ g)^{-1} \\
+  =\,\, &(t_i g (t_i \circ g)^{-1}) \, ((t_i \circ g) g (t_i \circ g^2)^{-1}) 
+    \, \cdots \, ((t_i \circ g^{n_i - 1}) g (t_i \circ g^{n_i})^{-1}) \\
+  =\,\, &t_i g^{n_t} t_i^{-1},
+\end{aligned}\]
+and hence
+\[v(g) = \prod_i = t_i g^{n_i} t_i^{-1}. \]
+We summarize these considerations for reference:</p>
+
+
+
+
+
+
+<div id="compoftransfer" class="statement">
+  <u>Lemma 1.1</u>:
+  
+  <p>Fix $g$. There exists $T_0 \subset T$ and $n_t$ for $t \in T_0$ such that:</p>
+
+<ul>
+<li>$t g^{n_t} t^{-1} \in H$</li>
+<li>$ v(g) = \prod_{t \in T_0} t g^{n_t} t^{-1} H' $</li>
+<li>$\sum_{t \in T_0} n_t = [G:H]$</li>
+<li>$n_t \mid |g|$</li>
+</ul>
+
+</div>
+
+
+
+<p>As a simple consequences:</p>
+
+
+
+
+
+<ul>
+<li>If $H \leq Z(G)$ then $v(g) = g^{[G:H]}$.</li>
+<li>In particular, $Z(G) \leq_f G$ implies $(G')^{[G:H]} = 1$.</li>
+</ul>
+
+
+
+
+
+
+<div  class="statement">
+  <u>Theorem 1.2</u>:
+  
+  <p>$G$ finite. If $p \mid |G' \cap Z(G)|$, then all Sylow $p$-subgroups are not
+abelian.</p>
+
+</div>
+
+
+
+
+
+<div class="proof">
+  <p>Suppose $P$ is abelian Sylow. By Sylow theorems there is $z \in P \cap G' \cap Z(G)$
+since $G' \cap Z(G)$ is normal.
+As $z$ is central the transfer $v \colon G \to P$ maps $v(z) = z^{[G:P]}$.
+By isomorphism theorems $G / \ker(v)$ is 
+abelian and hence $G' \leq \ker(v)$.
+But then $1 = v(z) = z^{[G:P]}$. Contradiction.</p>
+
+</div>
+
+
+<p>In the next sections we discuss further, more complicated applications of transfers.</p>
+
+
+
+
+<h1 class="h2" id="h2">
+  2. Applications
+</h1>
+
+
+
+
+<h1 class="h3" id="h2_1">
+  2.1. Finiteness condition on the derived subgroup
+</h1>
+
+
+
+
+
+<p>Our goal is to establish conditions for the derived subgroup to be finite.
+First a simple observation:</p>
+
+
+
+
+
+<p>If we fix is a right transversal $T$ of $Z(G)$ in $G$, we may write all commutators
+in $G$ as $[s,t]$ for $s,t \in T$. In particular, $Z(G)$ has finite index, there
+are only finitely many commutators. This lets us suspect the following:</p>
+
+
+
+
+
+
+<div id="schur" class="statement">
+  <u>Theorem 2.1</u>:
+   <strong>Schur</strong>
+  <p>$[G:Z(G)] < \infty$ implies $|G'| < \infty$.</p>
+
+</div>
+
+
+
+<p>As the derived subgroup is the subgroup <em>generated</em> by all commutators, so we need 
+another criterion.</p>
+
+
+
+
+
+
+<div id="dietzmann" class="statement">
+  <u>Theorem 2.2</u>:
+   <strong>Dietzmann</strong>
+  <p>$G$ group, $X \subset G$ finite and closed under conjugation. If there is a
+positive integer $n$ such that $X^n = 1$, then $\langle X \rangle$ is finite.</p>
+
+</div>
+
+
+
+
+
+<div class="proof">
+  <p>Let $S = \langle X \rangle$. Every $g \in S$ is a finite word in $X$.
+Assume $g = x_1 \dots x_m$ and fix $x \in X$. One can rewrite $g$ such that 
+$x$ is in front: If $t$ is the first appearance, then
+\[\begin{aligned} 
+    x &= (x_1 \dots x_t)(x_{t+1} \dots x_m) \\
+      &= x (x_1 \dots x_{t-1})^x (x_{t+1} \cdots x_m) \\
+      &= x x_1^x \dots x_{t-1}^x x_{t+1} \dots x_m. 
+\end{aligned}\]
+Note that if $x$ appeared at least $k$ times, this still holds after the rewrite.</p>
+
+<p>Now assume that $m$ is minimal. By assumption and the previous procedure 
+we find that an $x$ can appear at most $(n-1)$ times and so $m \leq (n-1)|X|$.</p>
+
+</div>
+
+
+<p>We can prove <a href="#schur">Theorem 2.,. .1</a> now:</p>
+
+
+
+
+
+
+
+<div class="proof">
+  <p>Clearly, the set of commutators is closed under conjugation and by previous 
+observations of transfers we have $(G')^{[G:Z(G)]} = 1$. We conclude with <a href="#dietzmann">Theorem 2.,. .2</a>.</p>
+
+</div>
+
+<h1 class="h3" id="h2_2">
+  2.2. Producing normal prime complements
+</h1>
+
+
+
+
+
+<p>Let $G$ be finite. The goal of this section is</p>
+
+
+
+
+
+
+<div id="burnside" class="statement">
+  <u>Theorem 2.3</u>:
+   <strong>Burnside's theorem of normal prime complements</strong>
+  <p>$P \in \operatorname{Syl}_p(G)$. If $P \leq Z(N_G(P))$, then $G$ has a normal 
+$p$-complement.</p>
+
+</div>
+
+
+
+<p>The proof requires some preparation.</p>
+
+
+
+
+
+<p>Since we are looking for a $\{p\}'$-Hall subgroup, we first summarize the basic properties
+of transfers to Hall subgroups:</p>
+
+
+
+
+
+<ul>
+<li>$G = H \ker(v)$ by cardinality arguments.</li>
+<li>$v(H) = v(G)$.</li>
+<li>$G / \ker(v) = H / H \cap \ker(v)$ by isomorphism theorem.</li>
+</ul>
+
+
+
+
+
+<p>If $H \leq G$ is Hall and $v$ the transer to $H$, one sees by cardinality arguments that
+$G = H \ker(v)$ and hence $v(H) = v(G)$.</p>
+
+
+
+
+
+<p>Next we need a simple lemma:</p>
+
+
+
+
+
+
+<div  class="statement">
+  <u>Lemma 2.4</u>:
+  
+  <p>$P \in \operatorname{Syl}_p(G)$, $x,y \in C_G(P)$. 
+If $x$ and $y$ are conjugated in $G$, then they are conjugated also in $N_G(P)$.</p>
+
+</div>
+
+
+
+
+
+<div class="proof">
+  <p>Note first that $P \in \operatorname{Syl}_p(C_G(y))$ and, as $y = x^g$, also 
+$P^g \in \operatorname{Syl}_p(C_G(y))$.
+So there is $c \in C_G(y)$ such that $P = P^{gc}$, which implies $gc \in N_G(P)$.
+Finally $x^{gc} = y$.</p>
+
+</div>
+
+
+<p>The proof of <a href="#burnside">Theorem 2.,. .3</a> proceeds as follows:</p>
+
+
+
+
+
+
+
+<div class="proof">
+  <p>The previous lemma in this setup implies that no distinct elements of $P$ are conjugates.
+The transfer $v$ to $P$ hence reduces to $v(x) = x^{[G:P]}$ for $x \in P$ and its 
+restriction to $P$ is injective. 
+Therefore, $P \cap \ker(v) = 1$ and we have found a complement.</p>
+
+</div>
+
+
+
+<div  class="statement">
+  <u>Corollary 2.5</u>:
+  
+  <p>$p$ the smallest prime divisor of $|G|$ and $P$ a Sylow $p$-subgroup.
+If $P$ cyclic, then $G$ has a normal $p$-complement.</p>
+
+</div>
+
+
+
+
+
+<div class="proof">
+  <p>$P \cong C_{p^n}$. Since $N_G(P) / C_G(P) \leq \operatorname{Aut}(P)$, its order
+divides $\phi(p^n) = p^{n-1}(p-1)$.
+But $p$ is the smallest prime divisor and $P \leq C_G(P)$, and so the order 
+must be $1$. Hence we may apply <a href="#burnside">Theorem 2.,. .3</a>.</p>
+
+</div>
+
+
+<p>As an immediate consequence: If $G$ is non-abelian group, that has a cyclic Sylow 
+$2$-subgroup, then $G$ is not simple.</p>
+
+
+
+
+
+
+<div  class="statement">
+  <u>Corollary 2.6</u>:
+  
+  <p>If all Sylow subgroups of $G$ are simple, then $G$ is soluble.</p>
+
+</div>
+
+
+
+
+
+<div class="proof">
+  <p>Take the smallest prime divisor $p$. 
+By <a href="#burnside">Theorem 2.,. .3</a> there is a normal $p$-complement $N$, which, in turn, also has cyclic 
+Sylow subgroups. By induction $N$ is cyclic and $G/N$ is a $p$-group.</p>
+
+</div>
+
+</body>
+</html>

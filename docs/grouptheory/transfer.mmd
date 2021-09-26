@@ -1,0 +1,159 @@
+# Transfer Maps
+
+We develop theory to produce normal subgroups. 
+The main result of this section is a result by Burnside that produces
+normal p-complements.
+
+
+
+## Definition and simple properties
+
+Let $G$ be a group, $H \leq_f G$ and $T$ a right transversal of $H$ in $G$.
+Given $g\in G$, $t \in T$ there exists a uniquely determined action 
+$t \circ g \in T$ such that $Htg = H(t \circ g)$. 
+This asserts the well-definedness of the **transfer map** to $H$:
+\[ v \colon G \to H/H', g \mapsto \prod_{t \in T} t g (t \circ g)^{-1} H'. \]
+It is independent of the chosen transversal and a group homomorphism.
+
+To compute the transversal for a fixed $g$ one can consider the orbits
+$O_1, \cdots, O_r$ produced by the action of $\langle g \rangle$ on $T$.
+Fix elements $t_1, \cdots, t_r$ inside and write $n_i = |O_{t_i}|$.
+Then one has $O_i = \{ t_i \circ g^j \mid 0 \leq j < n_i \}$ and $t_i = t_i \circ g^{n_i}$.
+Therefore, 
+\[\begin{aligned}
+  &\prod_{s \in O_i} s g (s \circ g)^{-1} \\
+  =\,\, &(t_i g (t_i \circ g)^{-1}) \, ((t_i \circ g) g (t_i \circ g^2)^{-1}) 
+    \, \cdots \, ((t_i \circ g^{n_i - 1}) g (t_i \circ g^{n_i})^{-1}) \\
+  =\,\, &t_i g^{n_t} t_i^{-1},
+\end{aligned}\]
+and hence
+\[v(g) = \prod_i = t_i g^{n_i} t_i^{-1}. \]
+We summarize these considerations for reference:
+
+LEMMA[compoftransfer]
+> Fix $g$. There exists $T_0 \subset T$ and $n_t$ for $t \in T_0$ such that:
+>
+> - $t g^{n_t} t^{-1} \in H$
+> - $ v(g) = \prod_{t \in T_0} t g^{n_t} t^{-1} H' $
+> - $\sum_{t \in T_0} n_t = [G:H]$
+> - $n_t \mid |g|$
+
+As a simple consequences:
+
+- If $H \leq Z(G)$ then $v(g) = g^{[G:H]}$.
+- In particular, $Z(G) \leq_f G$ implies $(G')^{[G:H]} = 1$.
+
+THEOREM
+> $G$ finite. If $p \mid |G' \cap Z(G)|$, then all Sylow $p$-subgroups are not
+> abelian.
+PROOF
+> Suppose $P$ is abelian Sylow. By Sylow theorems there is $z \in P \cap G' \cap Z(G)$
+> since $G' \cap Z(G)$ is normal.
+> As $z$ is central the transfer $v \colon G \to P$ maps $v(z) = z^{[G:P]}$.
+> By isomorphism theorems $G / \ker(v)$ is 
+> abelian and hence $G' \leq \ker(v)$.
+> But then $1 = v(z) = z^{[G:P]}$. Contradiction.
+
+In the next sections we discuss further, more complicated applications of transfers.
+
+
+
+## Applications
+
+### Finiteness condition on the derived subgroup
+
+Our goal is to establish conditions for the derived subgroup to be finite.
+First a simple observation:
+
+If we fix is a right transversal $T$ of $Z(G)$ in $G$, we may write all commutators
+in $G$ as $[s,t]$ for $s,t \in T$. In particular, $Z(G)$ has finite index, there
+are only finitely many commutators. This lets us suspect the following:
+
+THEOREM[schur] Schur
+> $[G:Z(G)] < \infty$ implies $|G'| < \infty$.
+
+As the derived subgroup is the subgroup _generated_ by all commutators, so we need 
+another criterion.
+
+THEOREM[dietzmann] Dietzmann
+> $G$ group, $X \subset G$ finite and closed under conjugation. If there is a
+> positive integer $n$ such that $X^n = 1$, then $\langle X \rangle$ is finite.
+PROOF
+> Let $S = \langle X \rangle$. Every $g \in S$ is a finite word in $X$.
+> Assume $g = x_1 \dots x_m$ and fix $x \in X$. One can rewrite $g$ such that 
+> $x$ is in front: If $t$ is the first appearance, then
+> \[\begin{aligned} 
+>     x &= (x_1 \dots x_t)(x_{t+1} \dots x_m) \\
+>       &= x (x_1 \dots x_{t-1})^x (x_{t+1} \cdots x_m) \\
+>       &= x x_1^x \dots x_{t-1}^x x_{t+1} \dots x_m. 
+> \end{aligned}\]
+> Note that if $x$ appeared at least $k$ times, this still holds after the rewrite.
+>
+> Now assume that $m$ is minimal. By assumption and the previous procedure 
+> we find that an $x$ can appear at most $(n-1)$ times and so $m \leq (n-1)|X|$.
+
+We can prove <@schur> now:
+
+PROOF
+> Clearly, the set of commutators is closed under conjugation and by previous 
+> observations of transfers we have $(G')^{[G:Z(G)]} = 1$. We conclude with <@dietzmann>.
+
+
+
+### Producing normal prime complements
+
+Let $G$ be finite. The goal of this section is 
+
+THEOREM[burnside] Burnside's theorem of normal prime complements
+> $P \in \operatorname{Syl}_p(G)$. If $P \leq Z(N_G(P))$, then $G$ has a normal 
+> $p$-complement.
+
+The proof requires some preparation.
+
+Since we are looking for a $\{p\}'$-Hall subgroup, we first summarize the basic properties
+of transfers to Hall subgroups:
+
+- $G = H \ker(v)$ by cardinality arguments.
+- $v(H) = v(G)$.
+- $G / \ker(v) = H / H \cap \ker(v)$ by isomorphism theorem.
+
+If $H \leq G$ is Hall and $v$ the transer to $H$, one sees by cardinality arguments that
+$G = H \ker(v)$ and hence $v(H) = v(G)$.
+
+Next we need a simple lemma:
+
+LEMMA
+> $P \in \operatorname{Syl}_p(G)$, $x,y \in C_G(P)$. 
+> If $x$ and $y$ are conjugated in $G$, then they are conjugated also in $N_G(P)$.
+PROOF
+> Note first that $P \in \operatorname{Syl}_p(C_G(y))$ and, as $y = x^g$, also 
+> $P^g \in \operatorname{Syl}_p(C_G(y))$.
+> So there is $c \in C_G(y)$ such that $P = P^{gc}$, which implies $gc \in N_G(P)$.
+> Finally $x^{gc} = y$.
+
+The proof of <@burnside> proceeds as follows:
+
+PROOF
+> The previous lemma in this setup implies that no distinct elements of $P$ are conjugates.
+> The transfer $v$ to $P$ hence reduces to $v(x) = x^{[G:P]}$ for $x \in P$ and its 
+> restriction to $P$ is injective. 
+> Therefore, $P \cap \ker(v) = 1$ and we have found a complement.
+
+COROLLARY
+> $p$ the smallest prime divisor of $|G|$ and $P$ a Sylow $p$-subgroup.
+> If $P$ cyclic, then $G$ has a normal $p$-complement.
+PROOF
+> $P \cong C_{p^n}$. Since $N_G(P) / C_G(P) \leq \operatorname{Aut}(P)$, its order
+> divides $\phi(p^n) = p^{n-1}(p-1)$.
+> But $p$ is the smallest prime divisor and $P \leq C_G(P)$, and so the order 
+> must be $1$. Hence we may apply <@burnside>.
+
+As an immediate consequence: If $G$ is non-abelian group, that has a cyclic Sylow 
+$2$-subgroup, then $G$ is not simple.
+
+COROLLARY
+> If all Sylow subgroups of $G$ are simple, then $G$ is soluble.
+PROOF
+> Take the smallest prime divisor $p$. 
+> By <@burnside> there is a normal $p$-complement $N$, which, in turn, also has cyclic 
+> Sylow subgroups. By induction $N$ is cyclic and $G/N$ is a $p$-group.

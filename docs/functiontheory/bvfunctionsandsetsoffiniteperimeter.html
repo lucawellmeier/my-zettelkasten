@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    window.renderMathInElement(document.body, {
+      delimiters: [
+        {left: "$$", right: "$$", display: true},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "$", right: "$", display: false},
+        {left: "\\(", right: "\\)", display: false},
+      ],
+      macros: {
+        "\\R": "\\mathbb{R}",
+        "\\la": "\\langle",
+        "\\ra": "\\rangle",
+      },
+    });
+  });
+</script>
+<style>
+body {
+  font-family: serif;
+  font-size: 14px;
+  max-width: 700px;
+  margin: 24px auto;
+  padding: 0 8px;
+}
+.h1 {
+  font-size: 36px;
+  text-decoration: underline;
+}
+.h2 {
+  font-size: 28px;
+}
+.h3 {
+  font-size: 20px;
+}
+.h4 {
+  font-size: 16px;
+}
+.statement {
+  margin-top: 8px;
+  border: 1px solid lightgrey;
+  padding: 0 8px;
+  padding-top: 8px;
+}
+.open-problem {
+  margin-top: 8px;
+  border: 1px solid orange;
+  padding: 0 8px;
+  padding-top: 8px;
+}
+.proof {
+  background: lightgrey;
+  border: 1px solid darkgrey;
+  border-left: 8px solid darkgrey;
+  padding: 4px 12px;
+  margin-bottom: 8px;
+}
+.proof p {
+  margin: 2px auto;
+}
+</style>
+</head>
+<body>
+<h1 class="h1" id="h">
+   BV Functions and Sets of Finite Perimeter
+</h1>
+
+
+
+
+<h1 class="h2" id="h1">
+  1. Basic concepts
+</h1>
+
+
+
+
+
+<p>Let $\Omega \subset \mathbb{R}^n$ open. A function $f \in L^1(\Omega)$ has 
+<strong>bounded variation</strong> in $\Omega$ if
+\[ |Df|(\Omega) = \sup\left\{ \int_\Omega f \operatorname{div} \varphi \, dL^n \right\} < \infty, \]
+where the supremum is taken over all test functions $\varphi \in C^1_c(\Omega; \mathbb{R}^n)$
+such that $\lVert \varphi \rVert_{C^0} \leq 1$.
+We call the set of all such functions $BV(\Omega)$. 
+A measurable set $E \subset \mathbb{R}^n$ has <strong>finite perimeter</strong>
+if $\chi_E \in BV(\Omega)$.
+For both definitions we also have the respective local versions, i.e. the conditions hold for 
+all compactly contained, open subsets of $\mathbb{R}^n$.</p>
+
+
+
+
+
+
+<div  class="statement">
+  <u>Theorem 1.1</u>:
+   <strong>Derivatives of BV functions are measures</strong>
+  <p>$f \in L^1(\Omega)$. Then $f \in BV(\Omega)$ if and only if the distributional
+derivative $Df = (D_1 f, \cdots, D_n f)$ is represented by a measure.
+The same for $BV_\text{loc}$ and Radon measures.</p>
+
+</div>
+
+
+
+
+
+<div class="proof">
+  <p>"$\implies$": Define the linear bounded operator $L \colon C^1_c(\Omega) \to \R$ mapping
+$L(\varphi) = - \int_\Omega f \operatorname{div} \varphi$. We immediately have
+$|L(\varphi)| \leq |Df|(\Omega) \lVert \varphi \rVert_{C^0}$ and, therefore, we can
+extend $L$ to $C_c^0(\Omega)$. Conclude by Riesz.</p>
+
+<hr />
+
+<p>"$\impliedby$": Using density of $C_c^\infty(\Omega)$ in $C_c^0(\Omega)$,
+one can prove easily that $|Df|$ is the total variation of the representing
+measure.</p>
+
+</div>
+
+
+<p>This asserts the correctness of our notation as $|Df|$ is the total variation 
+of the measure $Df$ (second statement of Riesz' theorem), and so we simply call 
+$|Df|$ the <strong>variational measure</strong> of $f$.
+We also write $Df = \sigma_f |Df|$ with $\sigma_f \in \mathbb{S}^{n-1}$.
+We call $P(E, \cdot) = P_E = |D\chi_E|$ the <strong>perimeter measure</strong> of $E$.</p>
+
+
+
+
+
+<p>$BV(\Omega)$ is a normed space using
+\[ \lVert f \rVert_{BV(\Omega)} = \lVert f \rVert_{L^1(\Omega)} + |Df|(\Omega). \]</p>
+
+
+
+
+
+<p>Two simple cases:</p>
+
+
+
+
+
+<ul>
+<li>Clearly, $W^{1,1}(\Omega) \subset BV(\Omega)$. This relation is strict as, for
+instance, indicators of balls are not $W^{1,1}$. 
+Furthermore, if $f \in W^{1,1}$, then $\lVert f \rVert_{BV(\Omega)} = \lVert f \rVert_{W^{1,1}}$
+since the measure $Df$ is given by $Df = (Df) L^n$.</li>
+<li>If $E$ is a bounded Lipschitz domain, we have (inner) normals almost everywhere 
+on the border and hence may use Gauss-Green to deduce that 
+\[ \int_\Omega \chi_E \operatorname{div} \varphi 
+    = - \int_{\partial E} \langle \varphi, \nu_E \rangle d H^{n-1}. \]
+In particular, $E$ has finite perimeter.</li>
+</ul>
+
+
+
+
+
+<p>The next theorem is an immediate result but we state it for reference and naming.</p>
+
+
+
+
+
+
+<div id="lowersemicontinuity" class="statement">
+  <u>Theorem 1.2</u>:
+   <strong>Lower semicontinuity of the variation</strong>
+  <p>$\{f_k\}_k \subset BV(\Omega)$ such that $f_k \to f$ in $L^1_\text{loc}(\Omega)$. Then
+$|Df|(\Omega) \leq \liminf |Df_k|(\Omega)$. In particular if $\{|Df_k|\}_k$
+is uniformly bounded, then $f \in BV(\Omega)$.</p>
+
+</div>
+
+
+
+
+<div  class="statement">
+  <u>Theorem 1.3</u>:
+   <strong>Criterion for weak convergence of variation measures</strong>
+  <p>If $\{f_k\} \subset BV(\Omega)$ s.t. $f_k \to f$ in $L^1(\Omega)$, then
+$D f_k \rightharpoonup D f$ as measures.</p>
+
+</div>
+
+
+
+
+
+<div class="proof">
+  <p>W.l.o.g. take a $C_c^1$-test function $\varphi$. $U \subset\subset \Omega$ open such that
+$|Df|(\Omega \setminus U) < \varepsilon$. 
+Then
+\[ \limsup |Df_k|(\Omega \setminus U) = |Df|(\Omega) - \liminf |Df_k|(U) < \varepsilon, \]
+by <a href="#lowersemicontinuity">Theorem 1.,. .2</a>.
+Now fix a smooth cut-off $\zeta$ on $(U)_\delta$.
+Then we can split the integral
+\[\begin{aligned}
+  &\int_\Omega \varphi \, d(D_i f_k) = -\int_\Omega f_k \partial_{x_i} \varphi \\
+  &= -\int_\Omega f_k \partial_{x_i} (\zeta \varphi) 
+     - \int_{\Omega \setminus \bar U} f_k \partial_{x_i} \left( \frac{(1-\zeta)\varphi}{\lVert \varphi \rVert_{C_0}} \right) \lVert \varphi \rVert_{C_0}.
+\end{aligned}\]
+The second summand is easily estimatable, and we can rewrite the first:
+\[\begin{aligned}
+  &-\int_\Omega f_k \partial_{x_i} (\zeta \varphi) \longrightarrow -\int_\Omega f \partial_{x_i} (\zeta \varphi)
+    = \int_\Omega \zeta \varphi \, d(D_i f) \\
+  &= \int_\Omega \varphi \, d(D_i f) + \int_{\Omega \setminus \bar U} (1 - \zeta) \varphi \, d(D_i f).
+\end{aligned}\]
+From now we can easily conclude that for large $k$ we have
+\[ \left| \int_\Omega \varphi \, d(D_i f_k) - \int_\Omega \varphi \, d(D_i f) \right| 
+    \leq 2 \varepsilon \lVert \varphi \rVert_{C^0} + \varepsilon. \]</p>
+
+</div>
+
+
+<p>Unfortunately, $C^\infty$ is not dense in $BV$. We do have a weaker form, though.
+If a sequence of $BV$ functions converges in $L^1$ and the sequence of total variations
+converges pointwise, then we speak of <strong>strict convergence</strong>.</p>
+
+
+
+
+
+
+<div id="approximation" class="statement">
+  <u>Theorem 1.4</u>:
+   <strong>Approximation of BV functions</strong>
+  <p>$f \in BV(\Omega)$. Then there exists a sequence 
+$\{f_k\} \subset BV(\Omega) \cap C^\infty(\Omega)$
+s.t. $f_k \to f$ stricly.</p>
+
+</div>
+
+
+
+
+
+<div class="proof">
+  <p>Take an $\Omega$-invading sequence $\{U_k\}_k$ such that $U_k \subset \subset U_{k+1}$
+and set $V_k = U_{k+1} \setminus \overline{U_{k-1}}$ and fix a smooth partition of unity 
+$\zeta_k$ on the $V_k$.
+Next, fix $\varepsilon > 0$ and mollify $f \zeta_k$ with an even kernel $g$ and
+a sequence $\varepsilon_k$ requiring that </p>
+
+<ul>
+<li>$\operatorname{spt}((f \zeta_k) * g_{\varepsilon_k}) \subset V_k$, </li>
+<li>$\lVert (f \zeta_k) * g_{\varepsilon_k} - f \zeta_k \rVert_{L^1(V_k)} < \frac{\varepsilon}{2^k}$,</li>
+<li>$\lVert (f \,D \zeta_k) * g_{\varepsilon_k} - f \, D \zeta_k \rVert_{L^1(V_k)} < \frac{\varepsilon}{2^k}$.</li>
+</ul>
+
+<p>Let $f_\varepsilon = \sum_k (f \zeta_k) * g_{\varepsilon_k}$. The $L^1$-convergence
+of $f_\varepsilon \to f$ is immediate.</p>
+
+<hr />
+
+<p>By <a href="#lowersemicontinuity">Theorem 1.,. .2</a> we have $|Df|(\Omega) \leq \liminf_\varepsilon |Df_\varepsilon(\Omega)$,
+so we only need to show the reverse with $\limsup$. Fix a test function $\varphi$. We have
+\[\int_\Omega f_\varepsilon \operatorname{div} 
+  = \sum_k \int_\Omega (f_\varepsilon \zeta_k) \operatorname{div}(g_{\varepsilon_k} * \varphi)
+  = I_1 - I_2, \]
+where the first equality uses the fact that $g$ is even and where
+\[\begin{aligned}
+  I_1 &= \sum_k \int_\Omega f \operatorname{div}(\zeta_k (g_{\varepsilon_k} * \varphi)), \\
+  I_2 &= \sum_k \int_\Omega \langle f D\zeta_k, g_{\varepsilon_k} * \varphi \rangle
+       = \sum_k \int_\Omega \langle f D\zeta_k * g_{\varepsilon_k} - f D\zeta_k, \varphi \rangle.
+\end{aligned}\]
+By the requirements on $g$ it follows immediately that $|I_2| < \varepsilon$.
+For $I_1$ we first require w.l.o.g. that $|Df|(\Omega \setminus U_1) < \varepsilon$.
+Then
+\[\begin{aligned} 
+  I_1 &\leq \sum_k |Df|(V_k) \leq |Df|(\Omega) + \sum_{k \geq 2} |Df|(V_k) \\
+      &\leq |Df|(\Omega) + 2 |Df|(\Omega \setminus U_1) < |Df|(\Omega) + 2 \varepsilon 
+\end{aligned}\]</p>
+
+</div>
+
+
+
+<div  class="statement">
+  <u>Theorem 1.5</u>:
+   <strong>Compactness theorem for BV functions</strong>
+  <p>$\Omega \subset \mathbb{R}^n$ bounded Lipschitz domain, $\{f_k\}_k \subset BV(\Omega)$
+uniformly bounded in the norm. Then there exists $f \in BV(\Omega)$ and a 
+subsequence $\{f_{k_j}\}_j$ such that $f_{k_j} \to f$ in $L^1(\Omega)$.</p>
+
+</div>
+
+
+
+
+
+<div class="proof">
+  <p>Approximate the sequence by another one in $W^{1,1}$ in order to use the Sobolev 
+compactness theorem on it and conclude with <a href="#lowersemicontinuity">Theorem 1.,. .2</a>.</p>
+
+</div>
+
+<h1 class="h2" id="h2">
+  2. The Coarea formula
+</h1>
+
+
+
+
+
+<p>We prove first a generalization of the Coarea formula.</p>
+
+
+
+
+
+
+<div id="coarea" class="statement">
+  <u>Theorem 2.1</u>:
+   <strong>Coarea formula</strong>
+  <p>$f \in BV(\Omega)$, $E_t = \{f > t\}$. Then:</p>
+
+<ol>
+<li>$P(E_t, \Omega) < \infty$ for a.e. $t \in \R$.</li>
+<li>$|Df|(\Omega) = \int_{-\infty}^\infty P(E_t, \Omega) \, dt$</li>
+</ol>
+
+<p>Conversely, If $f \in L^1(\Omega)$ and 
+$\int_{-\infty}^\infty P(E_t, \Omega) \, dt < \infty$, then $f \in BV(\Omega)$.</p>
+
+</div>
+
+
+
+
+
+<div class="proof">
+  <p>"$\leq$" in (2) and "Conversely...": Write 
+\[ f(x) = \int_0^\infty \chi_{E_t}(x) \, dt - \int_{-\infty}^0 (1 - \chi_{E_t}(x)) \, dt \]
+The inequality then follows by direct computation with Fubini.</p>
+
+<hr />
+
+<p>Let now $f \in C^\infty \cap BV(\Omega)$. Define
+\[ m(t) = |Df|(\Omega \setminus E_t) = \int_{\{f \leq t\}} |\nabla f| \, dL^n, \]
+which is a non-decreasing, hence a.e. differentiable, function with
+$\int_{-\infty}^\infty m'(t) \, dt \leq m(+\infty) - m(-\infty)$.</p>
+
+<p>In order to approximate $\chi_{E_t}$ we introduce the interpolation $\eta \colon \R \to \R$
+such that $f(x) = 0$ for $x \leq 0$, $f(x) = 1$ for $x \geq t + r$ and linear in between.
+For a test function $\varphi$ we have by an easy computation that
+\[ -\int_\Omega (\eta \circ f) \operatorname{div} \varphi
+    \leq \frac{m(t + r) - m(t)}{r}. \]
+Passing to the limit $r \to 0^+$ yields $m'(t) \geq -\int_\Omega \chi_{E_t} \operatorname{div}$
+for a.e. $t$ and we conclude.</p>
+
+<hr />
+
+<p>Finally let $f \in BV(\Omega)$. Approximate by $\{f_k\}_k$ in the sense of
+<a href="#approximation">Theorem 1.,. .4</a>, let $E_t^k = \{ f_k > t \}$ and note that
+$\lVert f_k - f \rVert_{L^1{\Omega}} = \int_{-\infty}^\infty \lVert \chi_{E_t^k} - \chi_{E_t} \rVert_{L^1{\Omega}} \, dt$.
+Hence up to a subsequence $\chi_{E_t^k} \to \chi_{E_t}$ in $L^1(\Omega)$. 
+Conclude using <a href="#lowersemicontinuity">Theorem 1.,. .2</a>.</p>
+
+</div>
+
+
+<p>Using similar techniques one can proof the following statement, allowing us
+to argue on balls instead of the whole space in some cases.</p>
+
+
+
+
+
+
+<div  class="statement">
+  <u>Proposition 2.2</u>:
+   <strong>Localization</strong>
+  <p>$u \in BV(\Omega)$, $x \in \Omega$, 
+$\delta = \operatorname{dist}(x, \partial \Omega)$. Then for a.e. 
+$r \in (0,\delta)$:
+\[ |D(u \chi_{B(x,r)})|(\R^n) \leq |Du|(B(x,r)) + \frac{d}{dr} \int_{B(x,r)} |u| \]
+In particular, for measurable sets with finite perimeter:
+\[ P(E \cap B(x,r), \R^n) \leq P(E, B(x,r)) + \frac{d}{dr} |E \cap B(x,r)| \]</p>
+
+</div>
+
+
+
+<p>The proof uses similar techniques as in the proof of <a href="#coarea">Theorem 2.,. .1</a>.</p>
+
+
+
+
+
+
+
+<div class="proof">
+  <p>W.l.o.g $x = 0$. For a.e. $r \in (0, \delta)$ the function
+$m(r) = \int_{B_r} |u|$ is differentiable. Fix such an $r$
+and cut off $u$ by a function $\gamma$ such that $\gamma(t) = 1$
+for $t \leq r$, $0$ for $t \geq r + \sigma$ and linear in between. We let
+$u_\sigma(x) = u(x) \gamma(|x|)$.</p>
+
+<hr />
+
+<p>We prove first that 
+\[ |Du_\sigma|(\R^n) \leq |Du|(B_{r+\sigma}) 
+    + \frac 1\sigma \int_{B_{r+\sigma} \setminus B_r} |u|. \]
+Approximate $\gamma$ by smooth $\gamma_k$ such that they conicide out of
+$[r, r+\sigma]$ and inside we have
+$-\left(1 + \frac 1k \right) \frac 1\sigma \leq \gamma_k' \leq 0$.
+Let $u_{\sigma,k}(x) = u(x) \gamma_k(|x|)$ and deduce the claim.</p>
+
+<hr />
+
+<p>Note that $u_\sigma \to u \chi_{B(x,r)}$ in $L^1$ and conclude with 
+<a href="#lowersemicontinuity">Theorem 1.,. .2</a>.</p>
+
+</div>
+
+
+<p>And finally an application of the Coarea formula to prove an analogue to 
+<a href="#approximation">Theorem 1.,. .4</a> for sets:</p>
+
+
+
+
+
+
+<div id="setapproximation" class="statement">
+  <u>Theorem 2.3</u>:
+   <strong>Approximation of sets with finite perimeter</strong>
+  <p>$E \subset \Omega$ with finite perimeter. Then there exists a sequence
+$\{E_k\}_k \subset \Omega$ such that $\Omega \cap \partial E_k$ is $C^\infty$ and</p>
+
+<ol>
+<li>$L^n(E_k \triangle E) \to 0,$</li>
+<li>$\lim P_{E_k}(\Omega) = P_E(\Omega).$</li>
+</ol>
+
+</div>
+
+
+
+
+
+<div class="proof">
+  <p>Approximate (<a href="#approximation">Theorem 1.,. .4</a>) $\chi_E$ by a sequence $\{f_k\}_k$ requiring w.l.o.g. that
+$0 \leq f_k \leq 1$ and $f_k \to \chi_E$ a.e.
+Call $E_t^k = \{f_k > t\}$. Then by Fatou and Coarea one has 
+\[ \int_\Omega \liminf P(E_k^t) \, dt \leq P_E(\Omega). \]
+By Sard's theorem, $E_k^t$ has $C_\infty$-boundary for a.e. $t \in [0,1]$.
+Choose one $t \in [0,1]$ such that $\liminf P(E_k^t, \Omega) \leq P(E, \Omega)$, 
+and let $E_k = E_k^t$.
+By requirement on the $\{f_k\}_k$ one has $\chi_{E_k} \to \chi_E$ a.e.
+Conclude (1) by dominated convergence and (2) by <a href="#lowersemicontinuity">Theorem 1.,. .2</a>.</p>
+
+</div>
+
+<h1 class="h2" id="h3">
+  3. Isoperimetric inequalities
+</h1>
+
+
+
+
+
+<p>We first generalize Gugliardo-Nierenberg-Sobolev and Poincaré to $BV$.
+Recall that $1^* = \frac{n}{n-1}$.</p>
+
+
+
+
+
+
+<div  class="statement">
+  <u>Theorem 3.1</u>:
+   <strong>Gugliardo-Nierenberg-Sobolev and Poincaré inequalities</strong>
+  <ol>
+<li>There exists $C_{GNS} = C_{GNS}(n)$ such that for all $f \in BV(\R^n)$ 
+\[ \lVert f \rVert_{L^{1^*}(\R^n)} \leq C_{GNS} |Df|(\R^n) \]</li>
+<li>Fix a ball $B = B^n(x,r)$. There exists $C_P = C_P(n,r)$ such that
+for all $f \in BV(B)$:
+\[ \lVert f - (f)_{x,r} \rVert_{L^{1^*}(\R^n)} \leq C_P |Df|(B) \]</li>
+</ol>
+
+</div>
+
+
+
+
+
+<div class="proof">
+  <p>Approximate $f$ strictly with a sequence in $C^\infty \cap W^{1,1}$. 
+Then use the GNS and P before taking limits.</p>
+
+</div>
+
+
+<p>An immediate consequence of GNS is</p>
+
+
+
+
+
+
+<div  class="statement">
+  <u>Corollary 3.2</u>:
+   <strong>Isoperimetric inequality</strong>
+  <p>$E \subset \R^n$ measurable, $|E| < \infty$. Then 
+\[ |E|^{\frac{n-1}{n}} \leq C_{GNS} P_E(R^n) \]</p>
+
+</div>
+
+
+
+
+<div  class="statement">
+  <u>Corollary 3.3</u>:
+   <strong>Relative isoperimetric inequality</strong>
+  <p>Let $E$ be measurable and $B$ a ball $B^n(x,r)$, then
+\[ \min\{|E \cap B|, |B \setminus E|\}^{\frac{n-1}{n}} \leq 2 C_P P_E(B) \]</p>
+
+</div>
+
+
+
+
+
+<div class="proof">
+  <p>$f = \chi_E \in BV(B)$. W.l.o.g $|E \cap B| \geq |B \setminus E|$.
+Then use Poincaré splitting the integral at $B = (E \cap B) \cup (B \setminus E)$.</p>
+
+</div>
+
+
+<p>Note that in the previous corollary, both $E \cap B$ and $B \setminus E$ have 
+the same perimeter.
+Furthermore, taking the limit we obtain</p>
+
+
+
+
+
+
+<div  class="statement">
+  <u>Corollary 3.4</u>:
+  
+  <p>$E \subset \R^n$ measurable. Then
+\[ \min\{ |E|, |\R^n \setminus E|\}^{\frac{n-1}{n}} \leq 2 C_P P_E(\R^n) \]</p>
+
+</div>
+
+
+<h1 class="h2" id="h4">
+  4. Reduced boundary
+</h1>
+
+
+
+
+</body>
+</html>

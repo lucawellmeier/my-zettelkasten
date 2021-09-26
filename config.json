@@ -1,0 +1,39 @@
+{
+    "templates_path": "/home/luca/zettelkasten/templates/",
+    "templates_ext": ".ms.html",
+
+    "latex_display_delims": [
+        {"left": "$$", "right": "$$"},
+        {"left": "\\[", "right": "\\]"}
+    ],
+    "latex_inline_delims": [
+        {"left": "$", "right": "$"},
+        {"left": "\\(", "right": "\\)"}
+    ],
+    "latex_macros": [
+        {"name": "\\R", "code": "\\mathbb{R}"},
+        {"name": "\\la", "code": "\\langle"},
+        {"name": "\\ra", "code": "\\rangle"}
+    ],
+    "latex_sanitize_delimiter": "%%%",
+
+    "all_directives": [
+        "LEMMA", "THEOREM", "COROLLARY", "PROPOSITION", "PROOF", "OPENPROBLEM"
+    ],
+    "classes": {
+        "header": ["#", "##", "###", "####"],
+        "paragraph": [""],
+        "statement": ["LEMMA", "THEOREM", "COROLLARY", "PROPOSITION"],
+        "proof": ["PROOF"],
+        "openproblem": ["OPENPROBLEM"]
+    },
+    "numbering": [
+        {
+            "types": ["##"], 
+            "children": [
+                { "types": ["###"], "children": [] },
+                { "types": ["LEMMA", "THEOREM", "COROLLARY", "PROPOSITION"], "children": [] }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,193 @@
+# Profinite Groups
+
+
+
+## Topological groups
+
+A topological group is a group endowed with a topology such that the group
+operations are continuous. We quickly summarize important properties without
+proof:
+
+THEOREM[top-gr-props]
+> $G$ topological group. $H \leq G$. $X,Y \subseteq G$.
+>
+> 1.  $X$ open or closed, then so are $gX$, $Xg$ and $X^{-1}$.
+> 2.  $\overline{H} \leq G$.
+> 3.  $C_G(X)$ is closed.
+> 4.  $N_G(H)$ is closed.
+> 5.  $H$ open, then $H$ closed.
+> 6.  $H$ closed and $[G:H]$ finite, then $H$ open.
+> 7.  $H$ open and $G$ compact, then $[G:H]$ finite.
+> 8.  $H$ normal, then the projections $G \to G/H$ are open.
+> 9.  $G$ Hausdorff if and only if $\{1\}$ is closed.
+> 10.  $K$ normal, then $G/K$ is Hausdorff if and only if $K$ is closed.
+> 11. $G$ totally disconnected, then $G$ Hausdorff.
+> 12. $G$ compact and $X, Y$ closed, then $XY$ closed.
+> 13. $X$ clopen with $1 \in X$, then $X$ contains a normal open subgroup.
+> 14. $G$ compact and totally disconnected, then any open subset of $G$
+>   is a union of cosets of open normal subgroups.
+> 15. $G$ compact and totally disconnected, then 
+>   \[ \overline{X} = \bigcap \{ NX \mid N \lhd_o G \}. \]
+> 16. $G$ compact and totally disconnected, then $G$ residually finite.
+> 17. $G$ compact and totally disconnected. $G$ infinite, then $G$ not 
+>   countable.
+
+
+
+## Inverse limits
+
+A **directed set** is a poset $I$ such that any two $a, b \in I$ are bounded
+by some $c \in I$, i.e. $a \leq c$ and $b \leq c$.
+
+An **inverse system** $\{X_i, \varphi_{ij}\}$ is a family (indexed by a directed 
+set) of sets $\{X_i\}_{i \in I}$ together with a family of maps 
+$\{ \varphi_{ij} \colon X_j \to X_i \mid i,j \in I \text{ and } i \leq j\}$
+$\varphi_{ij} \colon $ such that $\varphi_{ii} = \operatorname{id}_{X_i}$ and 
+$\varphi_{ij} \circ \varphi_{jk} = \varphi_{ik}$ whenever $i \leq j \leq k$.
+
+Given an inverse system we call a family of maps 
+$\{ \varphi_i \colon Y \to X_i \}$ a **compatible family** on $Y$ if 
+$\varphi_i = \varphi_{ij} \circ \varphi_j$ whenever $i \leq j$.
+
+Now an **inverse limit** $X$ of such an inverse system is a set $X$ together 
+with a compatible family $\{ \pi_i \}_i$ on $X$ such that the following 
+universal property holds
+> For every other compatible family $\{ \varphi_i \}$ on a space $Y$ there 
+> exists a unique map $\sigma \colon Y \to X$ such that 
+> $\varphi_i = \pi_i \circ \sigma$.
+
+PROPOSITION
+> Inverse limits exist and are unique.
+PROOF
+> Uniqueness is routine and the construction proceeds as follows:
+>
+> Let $C = \prod_i X_i$ be the direct product and $\pi_i$ the projections.
+> Then we define 
+> \[ X = \left\{ c \in C \mid (\varphi_{ij} \circ \pi_j)(c) = \pi_i(c) 
+>    \text{ for all } i \leq j \right\} \]
+> and let $\varphi_i = \pi_i|_X$.
+
+Hence we may use the notation $\lim^{\leftarrow} X_i$ unambiguously.
+Note that we may exchange the category of sets by the category of topological 
+spaces or groups, and still get a topological space or a group.
+
+### Category of topological spaces
+
+Without proof we state the following properties when working in the category of
+topological spaces:
+
+THEOREM[inv-lim-props]
+> Let $X = \lim^{\leftarrow} X_i$ be the inverse limit of topological spaces.
+>
+> 1.  If the $X_i$ are totally disconnected, so is $X$.
+> 2.  If the $X_i$ are Hausdorff, so is $X$.
+> 3.  If the $X_i$ are Hausdorff, then $X$ is closed in $\prod_i X_i$.
+> 4.  If the $X_i$ are Hausdorff, then the subsets $\varphi_i^{-1}(U)$, 
+>   where $U$ is open in $X_i$, form a basis of the topology of $X$.
+> 5.  If the $X_i$ are Hausdorff and compact, then $X$ is compact.
+> 6.  If the $X_i$ are not empty, Hausdorff and compact, then $X$ is not empty.
+> 7.  If the $G_i$ are non-empty, Hausdorff and compact, then for all $i$
+>   \[\varphi_i(X) = \bigcap_{j \geq i} \varphi_{ij}(X_j). \]
+> 8.  If $Y \subseteq X$ is such that $\varphi_i(Y) = X_i$ for all $i$, then $Y$ 
+>   is dense.
+> 9.  If $Y$ is a space and $\alpha \colon Y \to X$, then $\alpha$ is continuous
+>   if and only if all the $\varphi_i \circ \alpha$ are continuous.
+
+### Category of topological groups
+
+Now we turn to topological groups (and finally start proving things). 
+Throughout, let $G = \lim^{\leftarrow} G_i$ be the inverse limit of 
+topological groups.
+
+LEMMA[inv-lim-ker-lem]
+> If all the $G_i$ Hausdorff and $L \lhd_o G$, then there exists $i$ s.t. 
+> $\ker(\varphi_i) \subseteq L$.
+PROOF
+> Since $L$ is open, by <@inv-lim-props> it can be written as the union of 
+> inverse images of a compatible map of an open subgroup of some $G_i$.
+> Choose $i$ and $U \subseteq G_i$ such that $1 \in \varphi_i^{-1}(U) \subseteq L$.
+
+We call a family $I$ of subgroups of $G$ a **filtering basis** if for any 
+$K_1, K_2 \in I$ there is a third $K_3$ such that $K_3 \subseteq K_1 \cap K_2$.
+
+THEOREM[top-gr-inv-lim]
+> $G$ topological group. $I$ filtering basis of normal closed subgroups. 
+> Then $\{G/K\}_{K \in I}$ together with the family of natural maps 
+> $\{ \varphi_{K_1 K_2} \colon G/K_2 \to G/K_1 \}_{K_1 \geq K_2}$ 
+> form an inverse system. Let
+> \[ \hat G = \lim^{\longleftarrow}_{K \in I} G/K \]
+> and $\theta \colon G \to \prod_{K \in I} G/K$ the natural map.
+> Then we have:
+>
+> 1. $\theta$ is a continuous group homomorphism.
+> 2. $\theta(G) \leq \hat G$.
+> 3. $\theta(G)$ is dense in $\hat G$.
+> 4. $\ker \theta = \bigcap_{K \in I} K$.
+> 5. If $G$ compact, then $\theta(G) = \hat G$.
+> 6. If $G$ compact and $\bigcap_{K \in I} K = 1$, then $G$ and $\hat G$ are
+>    isomorphic and homeomorphic.
+PROOF
+> "(1)": All the projections are continuous + <@inv-lim-props> (9)
+>
+> ------------------------------------------------------------------------------
+>
+> "(2)": Clear as the maps $\varphi_{K_i K_j}$ are surjective.
+>
+> ------------------------------------------------------------------------------
+>
+> "(3)": Immediate by the density criterion <@inv-lim-props> (8).
+>
+> ------------------------------------------------------------------------------
+>
+> "(5)": Note that $\theta(G)$ is compact in a Hausdorff space, hence closed.
+>
+> ------------------------------------------------------------------------------
+>
+> "(6)": Use the fact that a continuous bijection from a compact to a Hausdorff
+> space is a homeomorphism.
+
+
+
+## Pro-$\mathcal{C}$ groups and completions
+
+Let $\mathcal{C}$ be a class of _finite_ groups, which is closed under subgroups, 
+epimorphic images and finite cartesian products.
+
+- A **$\mathcal{C}$-group** is an elements of this class.
+- A **pro $\mathcal{C}$-group** is a topological group that can be obtained as
+  an inverse limit of $\mathcal{C}$-groups (each endowed with the discrete
+  topology).
+- In the case where $\mathcal{C}$ is the class of all finite groups we call
+  $G$ a **profinite group**.
+
+THEOREM
+> TFAE:
+>
+> 1.  $G$ is a pro-$\mathcal{C}$-group
+> 2.  $G$ is isomorphic to a closed subgroup of a direct product of 
+>     $\mathcal{C}$-groups.
+> 3.  $G$ is compact and 
+>   $\bigcap \{ N \mid N \lhd_o G, G/N \in \mathcal{C} \} = 1$.
+> 4.  $G$ is compact, totally disconnected and $G/N \in \mathcal{C}$ for any
+>   $N \lhd_o G$.
+PROOF
+> "(1) $\implies$ (2)": The finite groups $G_\lambda$ with the discrete 
+> topology are Hausdorff. Use <@inv-lim-props> (3).
+>
+> ------------------------------------------------------------------------------
+>
+> "(2) $\implies$ (3)": Compactness follows from Tychonoff and for the 
+> intersection note that the kernels of the compatible maps are closed and of
+> finite index, hence open, and that they have empty intersection.
+>
+> ------------------------------------------------------------------------------
+>
+> "(3) $\implies$ (1)": <@top-gr-inv-lim>
+>
+> ------------------------------------------------------------------------------
+>
+> "(1) $\implies$ (4)": <@inv-lim-ker-lem>
+>
+> ------------------------------------------------------------------------------
+>
+> "(4) $\implies$ (3)": <@top-gr-props>
